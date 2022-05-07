@@ -1,16 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://www.travel.taipei/zh-tw/statistical-bulletin/number-of-visitors"
-
-start_year = 2021
-end_year = 2022
-start_month = 10
-end_month = 1
-time_range = 1
-
-def visitors_info_list(start_year,end_year,start_month,end_month,time_range):
-
+def visitors_info_list(start_year,end_year,time_range,start_month=1,end_month=1):
+    """
+    input:
+      integer: start_year,end_year,start_month,end_month,time_range
+      string: time_range (year or spot)
+    output:
+      list: new_visitor_list
+    """
+    if time_range=='year':
+        time_range=0
+    elif time_range=='spot':
+        time_range=1
+    url = "https://www.travel.taipei/zh-tw/statistical-bulletin/number-of-visitors"
     params = {'start-year':start_year,
             'end-year':end_year,
             'start-month':start_month,
@@ -29,8 +32,13 @@ def visitors_info_list(start_year,end_year,start_month,end_month,time_range):
         visit = spot.select_one('.info').get('data-num').replace(',','')
         new_visitor_list.append([place,visit])
     return new_visitor_list
-       
-    
 
-new_visitor_info_list = visitors_info_list(start_year,end_year,start_month,end_month,time_range)
-print(new_visitor_info_list)
+
+if __name__ == "__main__":
+    start_year = 2021
+    end_year = 2022
+    start_month = 10
+    end_month = 1
+    time_range = 1
+    new_visitor_info_list = visitors_info_list(start_year,end_year,start_month,end_month,time_range)
+    print(new_visitor_info_list)
