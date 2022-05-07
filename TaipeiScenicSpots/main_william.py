@@ -9,10 +9,12 @@ def visitors_info_list(start_year,end_year,time_range,start_month=1,end_month=1)
     output:
       list: new_visitor_list
     """
+    year_sw = True
     if time_range=='year':
         time_range=0
     elif time_range=='spot':
         time_range=1
+        year_sw = False
     url = "https://www.travel.taipei/zh-tw/statistical-bulletin/number-of-visitors"
     params = {'start-year':start_year,
             'end-year':end_year,
@@ -31,7 +33,7 @@ def visitors_info_list(start_year,end_year,time_range,start_month=1,end_month=1)
         place = spot.select_one('.name').text
         visit = spot.select_one('.info').get('data-num').replace(',','')
         new_visitor_list.append([place,visit])
-    return new_visitor_list
+    return new_visitor_list,year_sw
 
 
 if __name__ == "__main__":
