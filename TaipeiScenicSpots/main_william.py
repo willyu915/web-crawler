@@ -38,9 +38,9 @@ def visitors_info_list(start_year,end_year,time_range,start_month=1,end_month=1)
 
 if __name__ == "__main__":
     start_year = 2021
-    end_year = 2022
+    end_year = 2021
     start_month = 10
-    end_month = 1
-    time_range = 1
-    new_visitor_info_list = visitors_info_list(start_year,end_year,start_month,end_month,time_range)
-    print(new_visitor_info_list)
+    end_month = 10
+    time_range = 'spot'
+    new_visitor_info_list,year_sw = visitors_info_list(start_year,end_year,time_range,start_month,end_month)
+    print(new_visitor_info_list, year_sw)
